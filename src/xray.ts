@@ -35,10 +35,9 @@ module.exports = function registerNode (RED: Red) {
 //    RED.nodes.createNode(this,config);
 //    let node = this;
     this.on('input', async msg => {
-      console.log(config);
       let xray = Xray();
-
-      xray(config.url, config.cssSelector, JSON.parse(config.cssSelectors))
+      let data;
+      let stream = xray(config.url, config.cssSelector, JSON.parse(config.cssSelectors))
          //   .delayFrom(config.delayFrom)
    //   .delayTo(config.delayTo) //// Delay the next request between from and to milliseconds. If only from is specified, delay exactly from milliseconds.
    //   .concurrency(config.concurrency) // Set the request concurrency to n. Defaults to Infinity.
@@ -46,8 +45,25 @@ module.exports = function registerNode (RED: Red) {
       .paginate(config.paginate)
       .limit(config.limit)
      // .abort(config.abortValidator) // Abort pagination if validator function returns true. The validator function receives two arguments:
-      .then(function (result) {
-        console.log(result); // prints first result
+/*
+     .stream();
+      // Handle stream events --> data, end, and error
+      stream.on('data', function(chunk) {
+        msg.payload = JSON.parse(chunk.toString());
+        node.send(msg);
+//        data += chunk;
+      });
+
+      stream.on('end',function() {
+        console.log('data:' + data);
+      });
+
+      stream.on('error', function(err) {
+        console.log(err.stack);
+      });
+*/
+     .then(function (result) {
+//        console.log(result); // prints first result
         msg.payload = result;
         node.send(msg);
       })
@@ -55,8 +71,6 @@ module.exports = function registerNode (RED: Red) {
         console.log(err); // handle error in promise
         node.error(err);
       });
-
-//        .stream();
 
     });
   }
