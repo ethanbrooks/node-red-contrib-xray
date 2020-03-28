@@ -1,0 +1,127 @@
+<script type="text/javascript">
+  RED.nodes.registerType('xray', {
+    category: 'function',
+    color: '#a6bbcf',
+    defaults: {
+      name: { value: '' },
+      url: {value:'https://blog.ycombinator.com/'},
+      cssSelector: {value:'.post'},
+      cssSelectors: { value:`[
+          {
+              "title": "h1 a",
+              "link": ".article-title@href"
+          }
+      ]`, validate: RED.validators.typedInput("cssSelectors")},
+      cssSelectorsType: {value:"json"},
+      paginate:  { value: '.nav-previous a@href' }, // Select a url from a selector and visit that page.
+      limit:  { value: '' }, // Limit the amount of pagination to n requests.
+      abortValidator:  { value: '' }, // Abort pagination if validator function returns true. The validator function receives two arguments:
+  // result: The scrape result object for the current page.
+  // nextUrl: The URL of the next page to scrape.
+      delayFrom:  { value: '' }, // Delay the next request between from and to milliseconds. If only from is specified, delay exactly from milliseconds.
+      delayTo:  { value: '' },
+      concurrency:  { value: '' }, // Set the request concurrency to n. Defaults to Infinity.
+      throttle:  { value: '' },// Throttle the requests to n requests per ms milliseconds.
+      throttlePerMs:  { value: '' },
+      timeoutMs:  { value: '' } // Specify a timeout of ms milliseconds for each request.
+      //datatype: { value: 'current', validate: v => {
+      //  return [ 'xml', 'json'].indexOf(v) !== 1;
+      //} }
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: 'xray.png',
+    label: "Xray",
+    oneditprepare: function() {
+      $("#node-input-cssSelectorsType").val(this.cssSelectorsType);
+      $("#node-input-cssSelectors").typedInput({
+          default: 'json',
+          typeField: $("#node-input-cssSelectorsType"),
+          types:['json']
+      });
+
+    }
+  });
+</script>
+
+<script type="text/x-red" data-template-name="xray">
+
+  <div class="form-row">
+    <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Name">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-url"><i class="fas fa-project-diagram"></i> Url</label>
+    <input type="text" id="node-input-url" style="width:70%"  placeholder="https://blog.ycombinator.com/">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-cssSelector"><i class="fas fa-project-diagram"></i> Css Selector</label>
+    <input type="text" id="node-input-cssSelector" style="width:70%"  placeholder=".post">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-cssSelectors"><i class="fas fa-project-diagram"></i> Css Selectors</label>
+    <input type="text" id="node-input-cssSelectors" style="width:70%"  placeholder="[{title: 'h1 a', link: '.article-title@href'}]">
+    <input type="hidden" id="node-input-cssSelectorsType">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-paginate"><i class="fas fa-project-diagram"></i> Paginate</label>
+    <input type="text" id="node-input-paginate" style="width:70%"  placeholder=".page">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-limit"><i class="fas fa-project-diagram"></i> Limit</label>
+    <input type="text" id="node-input-limit" style="width:70%" placeholder="10">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-abortValidator"><i class="fas fa-project-diagram"></i> Abort Validator</label>
+    <input type="text" id="node-input-abortValidator" style="width:70%" placeholder="FUNC">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-delayFrom"><i class="fas fa-project-diagram"></i> Delay From</label>
+    <input type="text" id="node-input-delayFrom" style="width:70%" placeholder="1">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-delayFrom"><i class="fas fa-project-diagram"></i> Delay To</label>
+    <input type="text" id="node-input-delayTo" style="width:70%" placeholder="10">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-concurrency"><i class="fas fa-project-diagram"></i> Concurrency</label>
+    <input type="text" id="node-input-concurrency" style="width:70%" placeholder="2">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-throttle"><i class="fas fa-project-diagram"></i> Throttle</label>
+    <input type="text" id="node-input-throttle" style="width:70%" placeholder="1">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-throttlePerMs"><i class="fas fa-project-diagram"></i> Throttle Per Ms </label>
+    <input type="text" id="node-input-throttlePerMs" style="width:70%" placeholder="10">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-timeoutMs"><i class="fas fa-project-diagram"></i> Timeout Ms </label>
+    <input type="text" id="node-input-timeoutMs" style="width:70%" placeholder="1000">
+  </div>
+
+</script>
+
+<script type="text/x-red" data-help-name="xray">
+  <p>
+
+  </p>
+  <p>
+      The API provides :
+  </p>
+  <ul>
+      <li><strong>USD:</strong> US dollar</li>
+  </ul>
+</script>
