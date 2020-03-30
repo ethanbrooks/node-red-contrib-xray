@@ -1,3 +1,4 @@
+
 <script type="text/javascript">
   RED.nodes.registerType('xray', {
     category: 'function',
@@ -30,7 +31,7 @@
     },
     inputs: 1,
     outputs: 1,
-    icon: 'xray.png',
+    icon: 'x-ray.png',
     label: "Xray",
     oneditprepare: function() {
       $("#node-input-cssSelectorsType").val(this.cssSelectorsType);
@@ -39,12 +40,44 @@
           typeField: $("#node-input-cssSelectorsType"),
           types:['json']
       });
+      var node = this;
 
-    }
-  });
+      $.when(
+      $.getScript( "http://localhost:8080/runtime-es2015.js"),
+      $.getScript( "http://localhost:8080/polyfills-es2015.js"),
+      $.getScript( "http://localhost:8080/styles-es2015.js"),
+      $.getScript( "http://localhost:8080/vendor-es2015.js"),
+      $.getScript( "http://localhost:8080/main-es2015.js"),
+//      $.getScript( "http://localhost:8080/runtime-es5.js"),
+//      $.getScript( "http://localhost:8080/polyfills-es5.js"),
+//      $.getScript( "http://localhost:8080/styles-es5.js"),
+//      $.getScript( "http://localhost:8080/vendor-es5.js"),
+//      $.getScript( "http://localhost:8080/main-es5.js")
+      $.Deferred(function( deferred ){
+        $( deferred.resolve );
+      })
+    ).done(function(){
+      console.log('es2015');
+      //    window.Apiko.onImageCropperLoad(node);
+    }).fail(function(jqxhr, settings, exception ){
+      console.log('Fail of code load from:[' + fileName + ']', exception)
+    });
+  }
+});
 </script>
 
+
+
 <script type="text/x-red" data-template-name="xray">
+
+
+
+
+
+
+
+  
+  <app-root></app-root>
 
   <div class="form-row">
     <label for="node-input-name"><i class="icon-tag"></i> Name</label>
@@ -113,7 +146,17 @@
   </div>
 
 </script>
-
+<!--//
+<script src="http://localhost:8080/runtime-es2015.js" type="module"></script>
+<script src="http://localhost:8080/runtime-es5.js" nomodule defer></script>
+<script src="http://localhost:8080/polyfills-es5.js" nomodule defer></script>
+<script src="http://localhost:8080/polyfills-es2015.js" type="module"></script>
+<script src="http://localhost:8080/styles-es2015.js" type="module"></script>
+<script src="http://localhost:8080/styles-es5.js" nomodule defer></script>
+<script src="http://localhost:8080/vendor-es2015.js" type="module"></script>
+<script src="http://localhost:8080/vendor-es5.js" nomodule defer></script>
+<script src="http://localhost:8080/main-es2015.js" type="module"></script>
+<script src="http://localhost:8080/main-es5.js" nomodule defer></script> //-->
 <script type="text/x-red" data-help-name="xray">
   <p>
 
