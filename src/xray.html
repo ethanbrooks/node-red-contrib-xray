@@ -43,16 +43,18 @@
       var node = this;
 
       $.when(
-      $.getScript( "http://localhost:8080/runtime-es2015.js"),
-      $.getScript( "http://localhost:8080/polyfills-es2015.js"),
-      $.getScript( "http://localhost:8080/styles-es2015.js"),
-      $.getScript( "http://localhost:8080/vendor-es2015.js"),
-      $.getScript( "http://localhost:8080/main-es2015.js"),
-//      $.getScript( "http://localhost:8080/runtime-es5.js"),
-//      $.getScript( "http://localhost:8080/polyfills-es5.js"),
-//      $.getScript( "http://localhost:8080/styles-es5.js"),
-//      $.getScript( "http://localhost:8080/vendor-es5.js"),
-//      $.getScript( "http://localhost:8080/main-es5.js")
+        $('<link/>', {
+          rel: 'stylesheet',
+          type: 'text/css',
+          href: "https://cdn3.devexpress.com/jslib/19.2.5/css/dx.common.css"
+        }).appendTo('head'),
+        $('<link/>', {
+          rel: 'stylesheet',
+          type: 'text/css',
+          href: "https://cdn3.devexpress.com/jslib/19.2.5/css/dx.light.css"
+        }).appendTo('head'),
+        $.getScript( "http://localhost:8080/element.js"),
+
       $.Deferred(function( deferred ){
         $( deferred.resolve );
       })
@@ -69,15 +71,12 @@
 
 
 <script type="text/x-red" data-template-name="xray">
-
-
-
-
-
-
-
-  
-  <app-root></app-root>
+  <app-json></app-json>
+  <app-rules></app-rules>
+  <app-explorer/></app-explorer/>
+  <app-pivotapi></app-pivotapi>
+  <app-schedulerapi></app-schedulerapi>
+  <app-tree></app-tree>
 
   <div class="form-row">
     <label for="node-input-name"><i class="icon-tag"></i> Name</label>
@@ -146,17 +145,7 @@
   </div>
 
 </script>
-<!--//
-<script src="http://localhost:8080/runtime-es2015.js" type="module"></script>
-<script src="http://localhost:8080/runtime-es5.js" nomodule defer></script>
-<script src="http://localhost:8080/polyfills-es5.js" nomodule defer></script>
-<script src="http://localhost:8080/polyfills-es2015.js" type="module"></script>
-<script src="http://localhost:8080/styles-es2015.js" type="module"></script>
-<script src="http://localhost:8080/styles-es5.js" nomodule defer></script>
-<script src="http://localhost:8080/vendor-es2015.js" type="module"></script>
-<script src="http://localhost:8080/vendor-es5.js" nomodule defer></script>
-<script src="http://localhost:8080/main-es2015.js" type="module"></script>
-<script src="http://localhost:8080/main-es5.js" nomodule defer></script> //-->
+
 <script type="text/x-red" data-help-name="xray">
   <p>
 

@@ -11,6 +11,10 @@ $ yarn build
 ```
 
 ## Releasing to NPM
+https://productmgt-dc.herokuapp.com/
+https://itnext.io/building-micro-frontend-applications-with-angular-elements-34483da08bcb
+https://github.com/angular-extensions/elements
+https://angular.io/guide/elements
 
 Commit all changes and run the following:
 
