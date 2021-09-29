@@ -26,7 +26,7 @@
     "preversion": "run-s clean lint test build"
   },
   "dependencies": {
-    "i": "^0.3.6",
+    "i": "^0.3.7",
     "npm": "^6.14.4",
     "x-ray": "^2.3.4",
     "x-ray-phantom": "^1.0.1"
